@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { ArrowRight } from "lucide-react";
+import ReCAPTCHA from "react-google-recaptcha";
 import logoLight from "../assets/logolight.png";
 import { Link } from "react-router-dom";
 
 const PassBookLogin = () => {
   const [agentId, setAgentId] = useState("");
   const [error, setError] = useState("");
+  const [isVerified, setIsVerified] = useState(false);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -22,6 +24,15 @@ const PassBookLogin = () => {
     } else {
       setError("AgentId must contain only digits");
     }
+  };
+
+  const handleRecaptchaChange = (value) => {
+    if (value) {
+      setIsVerified(true);
+    } else {
+      setIsVerified(false);
+    }
+    setIsVerified(true);
   };
 
   return (
@@ -67,11 +78,23 @@ const PassBookLogin = () => {
             </div>
 
             <div>
+              <ReCAPTCHA
+                sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                onChange={handleRecaptchaChange}
+              />
+            </div>
+
+            <div>
               <Link to="/getOtp">
                 <button
                   type="button"
                   className="inline-flex w-full items-center justify-center rounded-md bg-purple-700 px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
-                  disabled={error || agentId.length < 8 || agentId.length > 10}
+                  disabled={
+                    !isVerified ||
+                    error ||
+                    agentId.length < 8 ||
+                    agentId.length > 10
+                  }
                 >
                   Get OTP <ArrowRight className="ml-2" size={16} />
                 </button>
