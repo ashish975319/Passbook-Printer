@@ -8,6 +8,7 @@ import PassBookLogin from "./components/PassBookLogin";
 import GetOtp from "./components/GetOtp";
 import Login from "./components/Login";
 import Passbook from "./components/Passbook";
+import PassbookData from "./components/PassbookData";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -20,6 +21,7 @@ function App() {
           <Route exact path="/" element={<Login />} />
           <Route exact path="/getOtp" element={<GetOtp />} />
           <Route path="/passbook" element={<Passbook />} />
+          <Route path="/passbookData" element={<PassbookData />} />
         </Routes>
       </div>
     </Router>
